@@ -8,7 +8,6 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TabPane fx:id="rootTabPanes" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -28,7 +27,7 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
             <Button mnemonicParsing="false" onAction="#onNewAction" text="New" />
-            <TextField promptText="File name" />
+            <TextField fx:id="filenameTextField" promptText="File name" />
             <Button mnemonicParsing="false" onAction="#onSaveAction" text="Save" />
         </items>
       </ToolBar>

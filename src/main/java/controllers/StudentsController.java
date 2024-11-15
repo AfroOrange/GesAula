@@ -1,6 +1,7 @@
 package controllers;
 
 import dad.gesaula.ui.model.Alumno;
+import dad.gesaula.ui.model.Grupo;
 import dad.gesaula.ui.model.Sexo;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -21,10 +23,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
-
 
     private final ListProperty<Alumno> students = new SimpleListProperty<>(FXCollections.observableArrayList());
     private final AddStudentController addStudentController = new AddStudentController();
@@ -111,6 +113,7 @@ public class StudentsController implements Initializable {
         Alumno alumno = new Alumno();
         alumno.setNombre("Sin nombre");
         alumno.setApellidos("Sin apellidos");
+        alumno.setFechaNacimiento(LocalDate.now());
 
         students.add(alumno);
         studentsTable.setItems(students);
@@ -126,6 +129,10 @@ public class StudentsController implements Initializable {
             dialog.setContentText("¿Estás seguro de eliminar el registro?");
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
 
+            // adds icon to dialog
+            ImageView icon = new ImageView(Objects.requireNonNull(getClass().getResource("/images/app-icon-64x64.png")).toString());
+            dialog.setGraphic(icon);
+
             if (dialog.showAndWait().get() == ButtonType.YES) {
                 students.remove(studentsTable.getSelectionModel().getSelectedItem());
             }
@@ -134,5 +141,77 @@ public class StudentsController implements Initializable {
 
     public SplitPane getRoot() {
         return root;
+    }
+
+    public ObservableList<Alumno> getStudents() {
+        return students.get();
+    }
+
+    public ListProperty<Alumno> studentsProperty() {
+        return students;
+    }
+
+    public AddStudentController getAddStudentController() {
+        return addStudentController;
+    }
+
+    public Alumno getSelectedStudent() {
+        return selectedStudent.get();
+    }
+
+    public ObjectProperty<Alumno> selectedStudentProperty() {
+        return selectedStudent;
+    }
+
+    public TableColumn<Alumno, LocalDate> getBirthdateColumn() {
+        return birthdateColumn;
+    }
+
+    public void setBirthdateColumn(TableColumn<Alumno, LocalDate> birthdateColumn) {
+        this.birthdateColumn = birthdateColumn;
+    }
+
+    public TableColumn<Alumno, String> getNameColumn() {
+        return nameColumn;
+    }
+
+    public void setNameColumn(TableColumn<Alumno, String> nameColumn) {
+        this.nameColumn = nameColumn;
+    }
+
+    public VBox getNewEntryRoot() {
+        return newEntryRoot;
+    }
+
+    public void setNewEntryRoot(VBox newEntryRoot) {
+        this.newEntryRoot = newEntryRoot;
+    }
+
+    public void setRoot(SplitPane root) {
+        this.root = root;
+    }
+
+    public Label getSelectLabel() {
+        return selectLabel;
+    }
+
+    public void setSelectLabel(Label selectLabel) {
+        this.selectLabel = selectLabel;
+    }
+
+    public TableView<Alumno> getStudentsTable() {
+        return studentsTable;
+    }
+
+    public void setStudentsTable(TableView<Alumno> studentsTable) {
+        this.studentsTable = studentsTable;
+    }
+
+    public TableColumn<Alumno, String> getSurnameColumn() {
+        return surnameColumn;
+    }
+
+    public void setSurnameColumn(TableColumn<Alumno, String> surnameColumn) {
+        this.surnameColumn = surnameColumn;
     }
 }
